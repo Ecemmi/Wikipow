@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Hakkımızda{% endblock %}
+
+{% block header %}Hakkımızda{% endblock %}
+
+{% block content %}
+<div class="about-section">
+    <div class="about-text">
+        <h2>Biz Kimiz?</h2>
+    </div>
+    <div class="values-section">
+        <h3>Ne İçin Duruyoruz?</h3>
+        <p>İnsanlığın daha fazla zamanını dışarıda keyif alarak geçirdiği ve doğayı koruduğu bir geleceğe inanıyoruz.</p>
+        <p>Amacımız, insanların dış mekan etkinliklerinden önce, sırasında ve sonra daha iyi deneyimler yaşamalarına yardımcı olmak ve doğanın korunması için ilham vermek ve desteklemektir.</p>
+    </div>
+    <div class="values-section">
+        <h3>Değerlerimiz</h3>
+        <ul>
+            <li><strong>Kapsayıcılık:</strong> Seçkinliğin üzerinde kapsayıcılığı savunuyoruz. Doğayı keyif almak isteyen herkes için net, basit ve kullanışlı araçlar yapıyoruz.</li>
+            <li><strong>Güven:</strong> Wikiloc'un özü, topluluktan takıma kadar herkesi içerir. Güveni onurlandırmayı amaçlıyoruz.</li>
+            <li><strong>Orijinallik:</strong> 2024'den beri kimliğimize sadık kalarak: gerçek insanlardan oluşan bağımsız ve gelişen bir topluluk olarak kalıyoruz. Sadece sizin gibi gerçek dış mekan tutkunlarının maceraları.</li>
+            <li><strong>Doğa Koruma:</strong> İş başarımızı, doğa koruma için iyi uygulamaları ilham vererek ve doğa koruma için eylemler uygulayarak sağlıklı bir gezegen için odaklıyoruz.</li>
+        </ul>
+    </div>
+</div>
+<style>
+    .about-section {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .about-text {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .values-section {
+        margin-bottom: 40px;
+    }
+
+    .values-section h3 {
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .values-section ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .values-section ul li {
+        margin-bottom: 10px;
+    }
+
+    .values-section ul li strong {
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

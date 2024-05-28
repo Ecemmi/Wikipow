@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Donors{% endblock %}
+
+{% block header %}Donors{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h2>Bağışçılar</h2>
+
+<div class="donor">
+    <a href="https://www.pau.edu.tr/">
+        <img src="{% static 'images/pamukkale_university.jpg' %}" alt="Pamukkale Üniversitesi" style="width: 200px; border-radius: 50%;">
+    </a>
+    <p><a href="https://www.pau.edu.tr/">Pamukkale Üniversitesi</a></p>
+</div>
+
+{% endblock %}

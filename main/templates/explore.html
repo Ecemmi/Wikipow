@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Explore{% endblock %}
+
+{% block header %}Explore{% endblock %}
+
+{% block content %}
+<div class="explore-container">
+    <div id="map" class="map" style="height: 500px; width: 50%;"></div>
+    <div class="routes">
+        <div class="route">
+            <div class="slideshow-container">
+                <div class="mySlides1 fade">
+                    <img src="{% static 'images/route1_1.jpg' %}" alt="Apalaş Dağları - Image 1" class="route-image">
+                </div>
+                <div class="mySlides1 fade">
+                    <img src="{% static 'images/route1_2.jpg' %}" alt="Apalaş Dağları - Image 2" class="route-image">
+                </div>
+                <div class="mySlides1 fade">
+                    <img src="{% static 'images/route1_3.jpg' %}" alt="Apalaş Dağları - Image 3" class="route-image">
+                </div>
+                <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
+            </div>
+            <h3><a href="{% url 'route_detail' 1 %}">Apalaş Dağları</a></h3>
+            <p>Dağların arasından geçen güzel bir yol.</p>
+            <div class="comments">
+                <p><strong>Yorum:</strong> Bu rota kesinlikle çok etkileyici!</p>
+                <p><strong>Yorum:</strong> Manzarayı çok sevdim, kesinlikle geri döneceğim!</p>
+            </div>
+            <div class="route-actions">
+                <button class="btn" onclick="likeRoute(1)">Beğen <span id="like-count-1">0</span></button>
+                <button class="btn" onclick="showCommentBox(1)">Yorum Yap</button>
+                <button class="btn" onclick="saveRoute(1)">Kaydet <span id="save-count-1">0</span></button>
+            </div>
+            <div id="comment-box-1" class="comment-box" style="display:none;">
+                <textarea id="comment-text-1" rows="4" cols="50"></textarea>
+                <button class="btn" onclick="submitComment(1)">Submit</button>
+            </div>
+        </div>
+        <div class="route">
+            <div class="slideshow-container">
+                <div class="mySlides2 fade">
+                    <img src="{% static 'images/route2_1.jpg' %}" alt="Pasifik Sırtı Patikası - Image 1" class="route-image">
+                </div>
+                <div class="mySlides2 fade">
+                    <img src="{% static 'images/route2_2.jpg' %}" alt="Pasifik Sırtı Patikası - Image 2" class="route-image">
+                </div>
+                <div class="mySlides2 fade">
+                    <img src="{% static 'images/route2_3.jpg' %}" alt="Pasifik Sırtı Patikası - Image 3" class="route-image">
+                </div>
+                <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
+            </div>
+            <h3><a href="{% url 'route_detail' 2 %}">Pasifik Sırtı Patikası</a></h3>
+            <p>Manzaralı bir sahil yürüyüşü.</p>
+            <div class="comments">
+                <p><strong>Yorum:</strong> Nefes kesen manzaralara sahip muhteşem rota!</p>
+                <p><strong>Yorum:</strong> Uzun bir yürüyüş için mükemmel, kesinlikle tavsiye ederim!</p>
+            </div>
+            <div class="route-actions">
+                <button class="btn" onclick="likeRoute(2)">Beğen <span id="like-count-2">0</span></button>
+                <button class="btn" onclick="showCommentBox(2)">Yorum Yap</button>
+                <button class="btn" onclick="saveRoute(2)">Kaydet <span id="save-count-2">0</span></button>
+            </div>
+            <div id="comment-box-2" class="comment-box" style="display:none;">
+                <textarea id="comment-text-2" rows="4" cols="50"></textarea>
+                <button class="btn" onclick="submitComment(2)">Submit</button>
+            </div>
+        </div>
+        <!-- Daha fazla rota ekleyebilirsiniz -->
+    </div>
+</div>
+
+<script>
+  function initMap() {
+    var mapOptions = {
+      zoom: 8,
+      center: { lat: -34.397, lng: 150.644 }
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  }
+
+  var slideIndex = [1, 1];
+  var slideId = ["mySlides1", "mySlides2"];
+  showSlides(1, 0);
+  showSlides(1, 1);
+
+  function plusSlides(n, no) {
+    showSlides(slideIndex[no - 1] += n, no - 1);
+  }
+
+  function showSlides(n, no) {
+    var i;
+    var x = document.getElementsByClassName(slideId[no]);
+    if (n > x.length) {slideIndex[no] = 1}
+    if (n < 1) {slideIndex[no] = x.length}
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    x[slideIndex[no]-1].style.display = "block";  
+  }
+
+  function showCommentBox(routeId) {
+    var commentBox = document.getElementById('comment-box-' + routeId);
+    commentBox.style.display = commentBox.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function submitComment(routeId) {
+    var commentText = document.getElementById('comment-text-' + routeId).value;
+    var commentsDiv = document.querySelector('.route:nth-child(' + routeId + ') .comments');
+    var newComment = document.createElement('p');
+    newComment.innerHTML = '<strong>Comment:</strong> ' + commentText;
+    commentsDiv.appendChild(newComment);
+    document.getElementById('comment-text-' + routeId).value = '';
+    document.getElementById('comment-box-' + routeId).style.display = 'none';
+  }
+
+  function likeRoute(routeId) {
+    var likeCount = document.getElementById('like-count-' + routeId);
+    likeCount.innerText = parseInt(likeCount.innerText) + 1;
+  }
+
+  function saveRoute(routeId) {
+    var saveCount = document.getElementById('save-count-' + routeId);
+    saveCount.innerText = parseInt(saveCount.innerText) + 1;
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+{% endblock %}

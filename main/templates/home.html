@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}Home{% endblock %}
+
+{% block content %}
+<h2>Wikiloc</h2>
+<div id="trail-slider">
+    <div class="container">
+        <ul class="trail-nav clearfix">
+            <li id="act-li-0"><a href="#" data-index="0" class="pictogram activity-2">Mountain Bike</a></li>
+            <li id="act-li-1"><a href="#" data-index="1" class="pictogram activity-1">Hiking</a></li>
+            <li id="act-li-2"><a href="#" data-index="2" class="pictogram activity-29">Road Bike</a></li>
+            <li id="act-li-3"><a href="#" data-index="3" class="pictogram activity-21">Running</a></li>
+        </ul>
+        <div id="slides">
+            <div id="previous-but" class="arrow previous" onclick="prevRoute()">&#10094;</div>
+            <div id="trail-info" class="clearfix">
+                <div class="trail-main">
+                    <span id="trail-activity">Hiking</span>
+                    <h3 id="trail-name" class=""><a id="trail-name-link" href="#">Trail Name</a></h3>
+                    <span id="trail-meta"><em>0 mi</em>. Location</span>
+                </div>
+                <div class="trail-user hidden-xs clearfix">
+                    <a href="#" id="trail-user-photo" class="trail-user-link"><img src="{% static 'images/noface.png' %}" alt=""></a>
+                    <span class="user-info">Author<a href="#" id="trail-user-name" class="trail-user-link">User Name</a></span>
+                </div>
+            </div>
+            <div id="trail-photos" class="hidden-xs clearfix">
+            </div>
+            <div id="next-but" class="arrow next" onclick="nextRoute()">&#10095;</div>
+            <a id="map-logo" href="https://maps.google.com" target="_blank"></a>
+        </div>
+    </div>
+    <div class="mapoverlay mapleft"></div>
+    <div id="imagemap" class="imagemap"></div>
+    <div class="mapoverlay mapright"></div>
+    <div id="act-tool" class="activity-tooltip"></div>
+</div>
+
+<div class="row">
+    <div class="mobile-app-column col-xs-12 col-sm-7 col-sm-push-5">
+        <div class="text">Akıllı telefonunuzla kendi GPS rotalarınızı oluşturun.</div>
+        <div class="text">Wikiloc ile direkt indirin</div>
+        <ul>
+            <li>Dış Mekan Navigasyonu</li>
+            <li>Dış mekan maceralarınız için ücretsiz çevrimdışı haritalar</li>
+            <li class="hidden-sm">Canlı İzleme</li>
+            <li class="hidden-md">Geçiş Alanına Göre Ara</li>
+        </ul>
+        <p class="text-center"><a class="btn btn-lg btn-warning" href="{% url 'download' %}">Get the App</a></p>
+    </div>
+    <div class="mobile-app-column col-xs-12 col-sm-5 col-sm-pull-7">
+        <a href="{% url 'download' %}"><img class="img-responsive" src="https://sc.wklcdn.com/wikiloc/assets/styles/images/home/mobile-app.png" title="Wikiloc App" alt="Wikiloc App"></a>
+    </div>
+</div>
+
+<script>
+    let currentRouteIndex = 0;
+
+    const routes = [
+        {
+            activity: "Mountain Biking",
+            name: "Trail 1",
+            distance: "5 mi",
+            location: "Location 1",
+            user: "User 1",
+            userPhoto: "{% static 'images/noface.png' %}",
+            photos: [
+                "https://s2.wklcdn.com/image_0/11313/98940/11645.120x90.jpg",
+                "https://s0.wklcdn.com/image_0/11313/98940/11646.120x90.jpg"
+            ],
+            mapImage: "https://sc.wklcdn.com/homemap/98940.jpg"
+        },
+        {
+            activity: "Hiking",
+            name: "Trail 2",
+            distance: "10 mi",
+            location: "Location 2",
+            user: "User 2",
+            userPhoto: "{% static 'images/noface.png' %}",
+            photos: [
+                "https://s1.wklcdn.com/image_0/11313/98940/11647.120x90.jpg",
+                "https://s2.wklcdn.com/image_0/11313/98940/11648.120x90.jpg"
+            ],
+            mapImage: "https://sc.wklcdn.com/homemap/98940.jpg"
+        },
+    ];
+
+    function updateSlider() {
+        const route = routes[currentRouteIndex];
+        document.getElementById('trail-activity').innerText = route.activity;
+        document.getElementById('trail-name').innerText = route.name;
+        document.getElementById('trail-meta').innerText = `${route.distance}. ${route.location}`;
+        document.getElementById('trail-user-name').innerText = route.user;
+        document.getElementById('trail-user-photo').querySelector('img').src = route.userPhoto;
+        document.getElementById('imagemap').style.backgroundImage = `url(${route.mapImage})`;
+
+        const trailPhotos = document.getElementById('trail-photos');
+        trailPhotos.innerHTML = route.photos.map(photo => `<span class="trail-photo"><img src="${photo}" alt="Trail Photo"></span>`).join('');
+    }
+
+    function nextRoute() {
+        currentRouteIndex = (currentRouteIndex + 1) % routes.length;
+        updateSlider();
+    }
+
+    function prevRoute() {
+        currentRouteIndex = (currentRouteIndex - 1 + routes.length) % routes.length;
+        updateSlider();
+    }
+
+    document.querySelectorAll('.trail-nav a').forEach((el, index) => {
+        el.addEventListener('click', (event) => {
+            event.preventDefault();
+            currentRouteIndex = index;
+            updateSlider();
+        });
+    });
+
+    window.onload = updateSlider;
+</script>
+{% endblock %}

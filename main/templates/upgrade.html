@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Premium'a Yükselt{% endblock %}
+
+{% block header %}Premium'a Yükselt{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<p>Premium Üyelik</p>
+
+<div class="premium-features">
+    <div class="feature">
+        <img src="{% static 'images/trail_navigation.jpg' %}" alt="Trail Navigation">
+        <p>Kendi kendinizi milyonlarca açık hava rotasında yönlendirin. Başlık göstergeleri, pusula ve ses ipuçları ile akıllı telefonunuzdan dahi çalışır!</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'images/personalized_routes.jpg' %}" alt="Personalized Routes">
+        <p>Kişiselleştirilmiş rotanızı güvenle oluşturun. Geçmek istediğiniz yerleri seçin; Wikiloc diğer topluluk üyelerinin en popüler rota bölümlerini kullanarak bir rota oluşturur.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'images/download_trails.jpg' %}" alt="Download Trails">
+        <p>Wikiloc'tan rotaları doğrudan Garmin, Apple Watch veya Suunto'nıza indirin.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'images/trail_search.jpg' %}" alt="Trail Search">
+        <p>Hepimizin harika rotalar paylaşan bir arkadaşı var. Şimdi profillere göre rotaları arayın.</p>
+    </div>
+</div>
+
+<style>
+    .premium-features {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .feature {
+        text-align: center;
+        width: 45%;
+        margin-bottom: 20px;
+    }
+
+    .feature img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .feature p {
+        font-size: 0.9em;
+        color: #666;
+    }
+</style>
+{% endblock %}

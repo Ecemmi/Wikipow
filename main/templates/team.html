@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Team Members{% endblock %}
+
+{% block header %}Team Members{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h2>Ekibimiz</h2>
+
+<div class="team-member">
+    <img src="{% static 'images/mustafa_arda.jpg' %}" alt="Mustafa Arda ERTEK" style="width: 200px; height: 200px; border-radius: 50%;">
+    <p>Mustafa Arda ERTEK</p>
+</div>
+
+<div class="team-member">
+    <img src="{% static 'images/ecem_nur.jpg' %}" alt="Ecem Nur KIRIK" style="width: 200px; height: 200px; border-radius: 50%;">
+    <p>Ecem Nur KIRIK</p>
+</div>
+
+<div class="team-member">
+    <img src="{% static 'images/esra_nur.jpg' %}" alt="Esra Nur ÇOBANLAR" style="width: 200px; height: 200px; border-radius: 50%;">
+    <p>Esra Nur ÇOBANLAR</p>
+</div>
+
+<div class="team-member">
+    <img src="{% static 'images/simay.jpg' %}" alt="Simay GÜNAYDIN" style="width: 200px; height: 200px; border-radius: 50%;">
+    <p>Simay GÜNAYDIN</p>
+</div>
+
+<div class="team-member">
+    <img src="{% static 'images/suennur_fatma.jpg' %}" alt="Suennur Fatma ERDOĞAN" style="width: 200px; height: 200px; border-radius: 50%;">
+    <p>Suennur Fatma ERDOĞAN</p>
+</div>
+{% endblock %}

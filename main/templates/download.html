@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Download{% endblock %}
+
+{% block header %}Download{% endblock %}
+
+{% block content %}
+
+<div class="features">
+    <div class="feature">
+        <img src="{% static 'images/feature1.jpg' %}" alt="Feature 1">
+        <h3>En iyi rotayı bul</h3>
+        <p>Yürüyüş, bisiklet ve daha fazlası için en iyi rotaları bulun.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'images/feature2.jpg' %}" alt="Feature 2">
+        <h3>Açık hava aktivitelerinizi takip edin</h3>
+        <p>Açık hava etkinliklerinizi takip edin ve toplulukla paylaşın.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'images/feature3.jpg' %}" alt="Feature 3">
+        <h3>Çevrimdışı kullanım için haritaları indirin</h3>
+        <p>İnternet bağlantısı olmadan kullanmak için haritaları indirin.</p>
+    </div>
+</div>
+
+<h2>Uygulamayı İndir</h2>
+<p>Uygulamayı uygulama mağazasından edinin ve kendi GPS rotalarınızı oluşturmaya başlayın!</p>
+<a href="https://www.wikiloc.com/outdoor-navigation-app?ref=home" class="btn btn-lg btn-warning">Download Now</a>
+{% endblock %}

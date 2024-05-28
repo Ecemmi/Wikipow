@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Trail{% endblock %}
+
+{% block header %}Upload Trail{% endblock %}
+
+{% block content %}
+<h2>Rotayı Kaydet</h2>
+<form method="post" id="upload-trail-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" id="trail_data" name="trail_data">
+    <input type="hidden" id="trail_length" name="trail_length">
+    <button type="submit" class="btn">Upload Trail</button>
+</form>
+<p>GPS verilerini kaydetmek için akıllı telefonunuzla rota yükleyin.</p>
+
+<button class="btn" id="start-button">Başla</button>
+<button class="btn" id="stop-button" disabled>Bitir</button>
+
+<script>
+    let trailData = [];
+    let watchID;
+    let totalDistance = 0;
+
+    document.getElementById('start-button').onclick = function() {
+        trailData = [];
+        totalDistance = 0;
+        this.disabled = true;
+        document.getElementById('stop-button').disabled = false;
+
+        if (navigator.geolocation) {
+            watchID = navigator.geolocation.watchPosition(success, error, { enableHighAccuracy: true });
+        } else {
+            alert('Geolocation is not supported by your browser');
+        }
+    };
+
+    document.getElementById('stop-button').onclick = function() {
+        navigator.geolocation.clearWatch(watchID);
+        this.disabled = true;
+        document.getElementById('start-button').disabled = false;
+        document.getElementById('trail_data').value = JSON.stringify(trailData);
+        document.getElementById('trail_length').value = totalDistance.toFixed(2);
+    };
+
+    function success(position) {
+        const { latitude, longitude } = position.coords;
+        if (trailData.length > 0) {
+            const lastPoint = trailData[trailData.length - 1];
+            const distance = calculateDistance(lastPoint.lat, lastPoint.lng, latitude, longitude);
+            totalDistance += distance;
+        }
+        trailData.push({ lat: latitude, lng: longitude });
+    }
+
+    function error() {
+        console.log('Unable to retrieve your location');
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371e3; 
+        const φ1 = lat1 * Math.PI/180; 
+        const φ2 = lat2 * Math.PI/180;
+        const Δφ = (lat2 - lat1) * Math.PI/180;
+        const Δλ = (lon2 - lon1) * Math.PI/180;
+
+        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                  Math.cos(φ1) * Math.cos(φ2) *
+                  Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        return R * c / 1000; 
+    }
+</script>
+{% endblock %}

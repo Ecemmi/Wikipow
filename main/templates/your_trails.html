@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Trails{% endblock %}
+
+{% block header %}Your Trails{% endblock %}
+
+{% block content %}
+<h2>Rotalarım</h2>
+<ul>
+    {% for trail in trails %}
+    <li>
+        <h3>{{ trail.name }}</h3>
+        <p>{{ trail.description }}</p>
+        <p>Tarih: {{ trail.date }}</p>
+        <p>Uzunluk: {{ trail.length }} km</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

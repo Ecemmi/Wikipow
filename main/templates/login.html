@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}Login{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h2>Giriş Yap</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username">Kullanıcı Adı veya E-posta</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Giriş</button>
+        </form>
+        <p class="signup-link">Hesabın yok mu? <a href="{% url 'signup' %}">Buradan kayıt ol</a></p>
+        <p class="forgot-password"><a href="#">Şifreni mi unuttun?</a></p>
+    </div>
+</div>
+{% endblock %}

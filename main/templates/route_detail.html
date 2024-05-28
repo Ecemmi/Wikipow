@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ route.name }}{% endblock %}
+
+{% block header %}{{ route.name }}{% endblock %}
+
+{% block content %}
+<div class="route-detail">
+    <img src="{% static route.image_url %}" alt="{{ route.name }}" class="route-image">
+    <h2>{{ route.name }}</h2>
+    <p>{{ route.description }}</p>
+    <div class="route-actions">
+        <button class="btn">Beğen</button>
+        <button class="btn">Yorum Yap</button>
+        <button class="btn">Kaydet</button>
+    </div>
+</div>
+{% endblock %}

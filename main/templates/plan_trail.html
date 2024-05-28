@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Plan Your Trail{% endblock %}
+
+{% block header %}Plan Your Trail{% endblock %}
+
+{% block content %}
+<h2>Rotanı Planla</h2>
+<p>Rotanızı kaydetmek ve yüklemek için akıllı telefonunuzu kullanın.</p>
+<a href="{% url 'upload_trail' %}" class="btn">Rota Kaydet</a>
+<a href="{% url 'your_trails' %}" class="btn">Rotalarım</a>
+{% endblock %}
